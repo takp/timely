@@ -32,6 +32,16 @@ func main() {
 				return nil
 			},
 		},
+		{
+			Name:    "hatena",
+			Aliases: []string{"h"},
+			Usage:   "Get timely info from hatena bookmark",
+			Action:  func(c *cli.Context) error {
+				args := c.Args().First()
+				Hatena(args)
+				return nil
+			},
+		},
 	}
 
 	app.Run(os.Args)
