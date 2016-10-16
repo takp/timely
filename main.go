@@ -18,8 +18,8 @@ func main() {
 			Aliases: []string{"q"},
 			Usage:   "Get timely info from qiita",
 			Action:  func(c *cli.Context) error {
-				fmt.Println("added task: ", c.Args().First())
-				Qiita()
+				args := c.Args().First()
+				Qiita(args)
 				return nil
 			},
 		},
