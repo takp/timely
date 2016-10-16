@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os"
 	"github.com/urfave/cli"
 )
@@ -28,7 +27,8 @@ func main() {
 			Aliases: []string{"g"},
 			Usage:   "Get timely info from github",
 			Action:  func(c *cli.Context) error {
-				fmt.Println("completed task: ", c.Args().First())
+				args := c.Args().First()
+				Github(args)
 				return nil
 			},
 		},
