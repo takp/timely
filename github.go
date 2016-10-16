@@ -5,9 +5,11 @@ import (
 	"strconv"
 	"github.com/PuerkitoBio/goquery"
 	"strings"
+	"github.com/takp/timely/helpers"
 )
 
 const (
+	GithubBaseURL = "https://github.com"
 	GithubTrendingURL = "https://github.com/trending"
 )
 
@@ -44,12 +46,11 @@ func openGithubPage(args string, urls []string) {
 		fmt.Println(err)
 	}
 
-	fmt.Println(itemNo)
 	if itemNo < 1 || itemNo > 25 {
 		fmt.Println("Can not open. The number must be between 1 to 25.")
 	}
 
-	url := "http://github.com" + urls[itemNo-1]
-	fmt.Println("Opening URL:", url)
-	openBrowser(url)
+	url := GithubBaseURL + urls[itemNo - 1]
+	fmt.Println("Opening Item:", itemNo, "URL:", url)
+	helpers.OpenPage(url)
 }

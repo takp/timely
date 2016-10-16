@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"strconv"
 	"github.com/PuerkitoBio/goquery"
-	"os/exec"
-	"runtime"
+	"github.com/takp/timely/helpers"
 )
 
 const (
+	QiitaBaseURL = "http://qiita.com"
 	QiitaPopularURL = "http://qiita.com/popular-items"
 )
 
@@ -38,7 +38,7 @@ func Qiita(args string) {
 }
 
 func openQiitaPage(args string, urls []string) {
-itemNo, err := strconv.Atoi(args)
+	itemNo, err := strconv.Atoi(args)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -48,22 +48,7 @@ itemNo, err := strconv.Atoi(args)
 		fmt.Println("Can not open. The number must be between 1 to 20.")
 	}
 
-	url := "http://qiita.com" + urls[itemNo-1]
+	url := QiitaBaseURL + urls[itemNo - 1]
 	fmt.Println("Open URL:", url)
-	openBrowser(url)
-}
-
-func openBrowser(url string) bool {
-	var args []string
-	switch runtime.GOOS {
-	case "darwin":
-		args = []string{"open"}
-	case "windows":
-		args = []string{"cmd", "/c", "start"}
-	default:
-		fmt.Println(runtime.GOOS)
-		args = []string{"xdg-open"}
-	}
-	cmd := exec.Command(args[0], append(args[1:], url)...)
-	return cmd.Start() == nil
+	helpers.OpenPage(url)
 }
