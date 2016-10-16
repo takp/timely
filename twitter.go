@@ -6,11 +6,11 @@ import (
 	"github.com/PuerkitoBio/goquery"
 	"time"
 	"github.com/takp/timely/helpers"
+	"strconv"
 )
 
 const (
 	TwitterBaseURL = "https://twitter.com"
-	example = "https://twitter.com/search?q=from%3Anaoya_ito%20since%3A2016-10-14"
 )
 
 func Twitter(args string) {
@@ -35,7 +35,7 @@ func Twitter(args string) {
 
 		// Get link URL for each tweets
 		doc.Find(".tweet").Each(func(i int, s *goquery.Selection) {
-			link, exists := s.Find(".content .tweet-text a").Attr("href")
+			link, exists := s.Find(".content .tweet-text a.twitter-timeline-link").Attr("href")
 			if exists {
 				// Reply tweetの時は除外すべきか？？
 				if !strings.HasPrefix(link, "http") {
@@ -50,9 +50,30 @@ func Twitter(args string) {
 	// Sort and display
 	ranking := helpers.SortMap(links)
 	for i, item := range ranking {
-		fmt.Println(item.Value, "times:", item.Key)
-		if i > 10 {
+		fmt.Println(i + 1, item.Key, ":",item.Value, "times")
+		if i > 8 {
 			break
 		}
 	}
+
+	if args != "" {
+		openTwitterSharedLinks(args, ranking)
+	}
+
+}
+
+func openTwitterSharedLinks(args string, ranking helpers.PairList) {
+	itemNo, err := strconv.Atoi(args)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	if itemNo < 1 || itemNo > 10 {
+		fmt.Println("Can not open. The number must be between 1 to 10.")
+	}
+
+	item := ranking[itemNo - 1]
+	url := item.Key
+	fmt.Println("Opening URL:", url)
+	helpers.OpenPage(url)
 }

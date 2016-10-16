@@ -20,6 +20,7 @@ func main() {
 				Qiita("")
 				Hatena("")
 				Github("")
+				Twitter("")
 				return nil
 			},
 		},
