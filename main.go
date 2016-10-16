@@ -19,7 +19,7 @@ func main() {
 			Usage:   "Get timely info from qiita",
 			Action:  func(c *cli.Context) error {
 				fmt.Println("added task: ", c.Args().First())
-				//getAll()
+				Qiita()
 				return nil
 			},
 		},
@@ -35,17 +35,4 @@ func main() {
 	}
 
 	app.Run(os.Args)
-}
-
-func getAll() {
-	qiita()
-	github()
-}
-
-func qiita() {
-	fmt.Println("Get qiita!")
-}
-
-func github() {
-	fmt.Println("Get github!")
 }

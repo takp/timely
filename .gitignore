@@ -33,3 +33,5 @@ vendor/
 /.idea
 *.iml
 .DS_Store
+tmp
+timely
