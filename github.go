@@ -23,13 +23,11 @@ func Github(args string) {
 	urls := []string{}
 
 	doc.Find(".repo-list-item").Each(func(i int, s *goquery.Selection){
-		name := s.Find("h3.repo-list-name").Text()
+		//name := s.Find("h3.repo-list-name").Text()
 		url, _ := s.Find(".repo-list-name a").Attr("href")
 		desc := s.Find(".repo-list-description").Text()
 
-		name = strings.Trim(name, "\n")
-		name = strings.Trim(name, "\n ")
-		name = strings.TrimSpace(name)
+		name := url
 		desc = strings.TrimSpace(desc)
 		urls = append(urls, url)
 		fmt.Println(i + 1, name, ":", desc)
