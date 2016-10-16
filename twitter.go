@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 	"github.com/PuerkitoBio/goquery"
-	//"github.com/takp/timely/helpers"
 	"time"
+	"github.com/takp/timely/helpers"
 )
 
 const (
@@ -14,7 +14,7 @@ const (
 )
 
 func Twitter(args string) {
-	fmt.Println("--- Twitter most shared links ---")
+	fmt.Println("--- Twitter most shared links from the engineer accounts ---")
 	// User List
 	userIDs := []string{"mizuno_takaaki", "yukihiro_matz", "naoya_ito",
 		"takoratta", "masuidrive", "mizchi", "Jxck_", "t_wada", "miyagawa"}
@@ -24,12 +24,10 @@ func Twitter(args string) {
 	// Fetch each account's tweets
 	for _, userID := range userIDs {
 		fmt.Println("Fetch Twitter ID:", userID)
-
 		dateStr := time.Now().AddDate(0, 0, -2).Format("2006-01-02")
 		urlStr := []string{TwitterBaseURL, "/search?q=from%3A", userID, "%20since%3A", dateStr}
 		url := strings.Join(urlStr, "")
-
-		fmt.Println("Fetch URL:", url)
+		//fmt.Println("Fetch URL:", url)
 		doc, err := goquery.NewDocument(url)
 		if err != nil {
 			fmt.Println(err.Error())
@@ -39,6 +37,7 @@ func Twitter(args string) {
 		doc.Find(".tweet").Each(func(i int, s *goquery.Selection) {
 			link, exists := s.Find(".content .tweet-text a").Attr("href")
 			if exists {
+				// Reply tweetの時は除外すべきか？？
 				if !strings.HasPrefix(link, "http") {
 					link = TwitterBaseURL + link
 				}
@@ -48,9 +47,12 @@ func Twitter(args string) {
 		time.Sleep(500 * time.Millisecond)
 	}
 
-	// Sortして表示
-	for k, v := range links {
-		fmt.Println(v, "times:", k)
+	// Sort and display
+	ranking := helpers.SortMap(links)
+	for i, item := range ranking {
+		fmt.Println(item.Value, "times:", item.Key)
+		if i > 10 {
+			break
+		}
 	}
-
 }
