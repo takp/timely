@@ -41,7 +41,7 @@ func openHatenaPage(args string, urls []string) {
 
 	if itemNo < 1 || itemNo > 20 {
 		fmt.Println("Can not open. The number must be between 1 to 25.")
-	}
+	}g
 
 	url := urls[itemNo - 1]
 	fmt.Println("Opening Item:", itemNo, "URL:", url)

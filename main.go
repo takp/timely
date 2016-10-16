@@ -13,6 +13,17 @@ func main() {
 
 	app.Commands = []cli.Command{
 		{
+			Name:    "all",
+			Aliases: []string{"a"},
+			Usage:   "Show all timely info",
+			Action:  func(c *cli.Context) error {
+				Qiita("")
+				Hatena("")
+				Github("")
+				return nil
+			},
+		},
+		{
 			Name:    "qiita",
 			Aliases: []string{"q"},
 			Usage:   "Get timely info from qiita",
