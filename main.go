@@ -53,6 +53,16 @@ func main() {
 				return nil
 			},
 		},
+		{
+			Name:    "twitter",
+			Aliases: []string{"t"},
+			Usage:   "Get timely shared url from twitter",
+			Action:  func(c *cli.Context) error {
+				args := c.Args().First()
+				Twitter(args)
+				return nil
+			},
+		},
 	}
 
 	app.Run(os.Args)
