@@ -27,7 +27,7 @@ func Twitter(args string) {
 	// Fetch each account's tweets
 	for _, userID := range userIDs {
 		fmt.Println("Fetch Tweets:", userID)
-		dateStr := time.Now().AddDate(0, 0, -3).Format("2006-01-02")
+		dateStr := time.Now().AddDate(0, 0, -5).Format("2006-01-02")
 		urlStr := []string{TwitterBaseURL, "/search?q=from%3A", userID, "%20since%3A", dateStr}
 		url := strings.Join(urlStr, "")
 		//fmt.Println("Fetch URL:", url)
