@@ -17,17 +17,6 @@ When you find the article you want to see more detail, input the number
 
 ## Configuration
 
-You can change the twitter user list by modifying the config.toml.
-
-```bash
-# config.toml
-TwitterAccounts = [
-    "mizuno_takaaki",
-    "yukihiro_matz",
-    "rob_pike",
-    ...
-]
-```
 
 ## Help
 
