@@ -7,7 +7,6 @@ import (
 	"time"
 	"github.com/takp/timely/helpers"
 	"strconv"
-	"github.com/BurntSushi/toml"
 )
 
 const (
@@ -16,16 +15,9 @@ const (
 
 func Twitter(args string) {
 	fmt.Println("--- Twitter most shared links from the engineer accounts ---")
-	// Get twitter accounts list from config.toml
-	var conf Config
-	if _, err := toml.DecodeFile("config.toml", &conf); err != nil {
-		fmt.Println(err)
-	}
-	userIDs := conf.TwitterAccounts
-
 	links := make(map[string]int)
 	// Fetch each account's tweets
-	for _, userID := range userIDs {
+	for _, userID := range twitterAccounts() {
 		fmt.Println("Fetch Tweets:", userID)
 		dateStr := time.Now().AddDate(0, 0, -5).Format("2006-01-02")
 		urlStr := []string{TwitterBaseURL, "/search?q=from%3A", userID, "%20since%3A", dateStr}

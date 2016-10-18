@@ -6,11 +6,11 @@ Timely is the app to get the timely info for the web developers.
 
 You can fetch the timely info by the simple commands.
 
-- `$ timely all` `$ timely a`: Show all timely info
-- `$ timely qiita` `$ timely q`: Show Qiita.com's popular items
-- `$ timely github` `$ timely g`: Show Github trending repositories
-- `$ timely hatena` `$ timely h`: Show Hatena Bookmark's hot entries
-- `$ timely twitter` `$ timely t`: Fetch twitter's most shared links
+- `$ timely all` or `$ timely a`: Show all timely info
+- `$ timely github` or `$ timely g`: Show Github trending repositories
+- `$ timely qiita` or `$ timely q`: Show Qiita.com's popular items
+- `$ timely hatena` or `$ timely h`: Show Hatena Bookmark's hot entries
+- `$ timely twitter` or `$ timely t`: Fetch twitter's most shared links
 
 When you find the article you want to see more detail, input the number
 - `$ timely qiita 3` or `$ timely q 3`: Open the 3rd link in web browser
@@ -58,6 +58,39 @@ GLOBAL OPTIONS:
 ## Example
 
 ```bash
+$ timely g
+--- Github Trending Repositories ---
+1 /attic-labs/noms : The versioned, forkable, syncable database
+2 /naptha/tesseract.js : Pure Javascript OCR for 62 Languages 📖🎉🖥
+3 /channelcat/sanic : Python 3.5+ web server that's written to go fast
+4 /yarnpkg/yarn : 📦🐈 Fast, reliable, and secure dependency management.
+5 /FreeCodeCamp/FreeCodeCamp : The https://FreeCodeCamp.com open source codebase and curriculum. Learn to code and help nonprofits.
+6 /open-guides/og-aws : 📙 Amazon Web Services — a practical guide
+7 /jwasham/google-interview-university : A complete daily plan for studying to become a Google software engineer.
+8 /Microsoft/LightGBM : LightGBM is a fast, distributed, high performance gradient boosting (GBDT, GBRT, GBM or MART) framework based on decision tree algorithms, used for ranking, classification and many other machine learning tasks.
+9 /ZuzooVn/machine-learning-for-software-engineers : A complete daily plan for studying to become a machine learning engineer.
+10 /arthepsy/ssh-audit : SSH server auditing (banner, key exchange, encryption, mac, compression, compatibility, security, etc)
+11 /alibaba/AliSQL : AliSQL is a MySQL branch originated from Alibaba Group. Fetch document from Release Notes at bottom.
+12 /haadcode/orbit : Distributed, serverless, peer-to-peer chat application on IPFS
+13 /mike-schultz/materialette : Materialette - A color palette for material design
+14 /mholt/caddy : Fast, cross-platform HTTP/2 web server with automatic HTTPS
+15 /amark/gun : A realtime, decentralized, offline-first, graph database engine.
+16 /FormidableLabs/nodejs-dashboard : Telemetry dashboard for node.js apps from the terminal!
+17 /mikeal/roll-call : ☎️ Free and reliable audio calls for everyone w/ browser p2p.
+18 /florent37/DiagonalLayout : With Diagonal Layout explore new styles and approaches on material design
+19 /yanzhenjie/NoHttp : Android Http标准框架，底层OkHttp，与RxJava完美结合，比Retrofit更简单易用。
+20 /tensorflow/tensorflow : Computation using data flow graphs for scalable machine learning
+21 /chemzqm/wept : 微信小程序实时开发工具
+22 /transcranial/keras-js : Run trained Keras models in the browser, with GPU support
+23 /WhiteHouse/fb_messenger_bot : This Drupal module provides a tool to build a chat bot to work on Facebook's Messenger Platform.
+24 /sentsin/layui : 经典模块化前端框架
+25 /joshwcomeau/redux-vcr : 📼 Record and replay user sessions
+
+$ timely g 2
+# Open the 2nd link
+```
+
+```bash
 $ timely q
 --- Qiita 人気の投稿 ---
 1   Swift3 全予約語 (95語) の解説
@@ -86,36 +119,7 @@ $ timely q 3
 ```
 
 ```bash
-$ timely g
---- Github Trending Repositories ---
-1 /attic-labs/noms : The versioned, forkable, syncable database
-2 /naptha/tesseract.js : Pure Javascript OCR for 62 Languages 📖🎉🖥
-3 /channelcat/sanic : Python 3.5+ web server that's written to go fast
-4 /yarnpkg/yarn : 📦🐈 Fast, reliable, and secure dependency management.
-5 /FreeCodeCamp/FreeCodeCamp : The https://FreeCodeCamp.com open source codebase and curriculum. Learn to code and help nonprofits.
-6 /open-guides/og-aws : 📙 Amazon Web Services — a practical guide
-7 /jwasham/google-interview-university : A complete daily plan for studying to become a Google software engineer.
-8 /Microsoft/LightGBM : LightGBM is a fast, distributed, high performance gradient boosting (GBDT, GBRT, GBM or MART) framework based on decision tree algorithms, used for ranking, classification and many other machine learning tasks.
-9 /ZuzooVn/machine-learning-for-software-engineers : A complete daily plan for studying to become a machine learning engineer.
-10 /arthepsy/ssh-audit : SSH server auditing (banner, key exchange, encryption, mac, compression, compatibility, security, etc)
-11 /alibaba/AliSQL : AliSQL is a MySQL branch originated from Alibaba Group. Fetch document from Release Notes at bottom.
-12 /haadcode/orbit : Distributed, serverless, peer-to-peer chat application on IPFS
-13 /mike-schultz/materialette : Materialette - A color palette for material design
-14 /mholt/caddy : Fast, cross-platform HTTP/2 web server with automatic HTTPS
-15 /amark/gun : A realtime, decentralized, offline-first, graph database engine.
-16 /FormidableLabs/nodejs-dashboard : Telemetry dashboard for node.js apps from the terminal!
-17 /mikeal/roll-call : ☎️ Free and reliable audio calls for everyone w/ browser p2p.
-18 /florent37/DiagonalLayout : With Diagonal Layout explore new styles and approaches on material design
-19 /yanzhenjie/NoHttp : Android Http标准框架，底层OkHttp，与RxJava完美结合，比Retrofit更简单易用。
-20 /tensorflow/tensorflow : Computation using data flow graphs for scalable machine learning
-21 /chemzqm/wept : 微信小程序实时开发工具
-22 /transcranial/keras-js : Run trained Keras models in the browser, with GPU support
-23 /WhiteHouse/fb_messenger_bot : This Drupal module provides a tool to build a chat bot to work on Facebook's Messenger Platform.
-24 /sentsin/layui : 经典模块化前端框架
-25 /joshwcomeau/redux-vcr : 📼 Record and replay user sessions
-```
-
-```bash
+$ timely h
 --- はてなブックマーク 技術ブログ ホットエントリー ---
 1 JavaScript 製ファミコンエミュレータを公開しました - まるまるこふこふ : 390 users
 2 【レビュー】レゴWeDo 2.0で幼児からロボット&プログラミング学習！ - やめて... : 198 users

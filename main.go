@@ -17,9 +17,9 @@ func main() {
 			Aliases: []string{"a"},
 			Usage:   "Show all timely info",
 			Action:  func(c *cli.Context) error {
+				Github("")
 				Qiita("")
 				Hatena("")
-				Github("")
 				Twitter("")
 				return nil
 			},
