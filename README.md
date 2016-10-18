@@ -75,8 +75,9 @@ $ timely g
 24 /sentsin/layui : 经典模块化前端框架
 25 /joshwcomeau/redux-vcr : 📼 Record and replay user sessions
 
-$ timely g 2
-# Open the 2nd link
+$ timely g 4
+Opening...
+Item: 4 URL: https://github.com/yarnpkg/yarn
 ```
 
 ```bash
@@ -103,8 +104,9 @@ $ timely q
 19   TensorFlowのチュートリアルを通して、人工知能の原理について学習する
 20   Homebrew使い方まとめ
 
-$ timely q 3
-# Open the 3rd link
+$ timely q 3 # Open the 3rd link
+Opening...
+URL: http://...
 ```
 
 ```bash
