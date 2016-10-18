@@ -12,7 +12,11 @@ const (
 )
 
 func Hatena(args string) {
-	fmt.Println("--- はてなブックマーク 技術ブログ ホットエントリー ---")
+	if args == "" {
+		fmt.Println("--- はてなブックマーク 技術ブログ ホットエントリー ---")
+	} else {
+		fmt.Println(OpeningMessage)
+	}
 	doc, err := goquery.NewDocument(HatenaTechBlogURL)
 	if err != nil {
 		fmt.Println(err.Error())
@@ -25,7 +29,9 @@ func Hatena(args string) {
 		url, _ := s.Find("h3.hb-entry-link-container a").Attr("href")
 		usersNo := s.Find("ul.users li a span").Text()
 		urls = append(urls, url)
-		fmt.Println(i + 1, title, ":", usersNo, "users")
+		if args == "" {
+			fmt.Println(i + 1, title, ":", usersNo, "users")
+		}
 	})
 
 	if args != "" {
@@ -44,6 +50,6 @@ func openHatenaPage(args string, urls []string) {
 	}
 
 	url := urls[itemNo - 1]
-	fmt.Println("Opening Item:", itemNo, "URL:", url)
+	fmt.Println("Item:", itemNo, "URL:", url)
 	helpers.OpenPage(url)
 }

@@ -14,7 +14,12 @@ const (
 )
 
 func Github(args string) {
-	fmt.Println("--- Github Trending Repositories ---")
+	if args == "" {
+		fmt.Println("--- Github Trending Repositories ---")
+	} else {
+		fmt.Println(OpeningMessage)
+	}
+
 	doc, err := goquery.NewDocument(GithubTrendingURL)
 	if err != nil {
 		fmt.Println(err.Error())
@@ -26,11 +31,12 @@ func Github(args string) {
 		//name := s.Find("h3.repo-list-name").Text()
 		url, _ := s.Find(".repo-list-name a").Attr("href")
 		desc := s.Find(".repo-list-description").Text()
-
 		name := url
 		desc = strings.TrimSpace(desc)
 		urls = append(urls, url)
-		fmt.Println(i + 1, name, ":", desc)
+		if args == "" {
+			fmt.Println(i + 1, name, ":", desc)
+		}
 	})
 
 	if args != "" {
@@ -49,6 +55,6 @@ func openGithubPage(args string, urls []string) {
 	}
 
 	url := GithubBaseURL + urls[itemNo - 1]
-	fmt.Println("Opening Item:", itemNo, "URL:", url)
+	fmt.Println("Item:", itemNo, "URL:", url)
 	helpers.OpenPage(url)
 }
