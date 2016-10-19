@@ -28,6 +28,9 @@ func Qiita(args string) {
 
 	urls := []string{}
 
+	// Read CSV
+	urls, err = services.ReadCSV("qiita")
+
 	doc.Find(".popularItem").Each(func(i int, s *goquery.Selection){
 		title := s.Find(".popularItem_articleTitle_text").Text()
 		url, _ := s.Find(".popularItem_articleTitle_text").Attr("href")
@@ -38,13 +41,13 @@ func Qiita(args string) {
 		}
 	})
 
+	// Write CSV
 	services.WriteCSV(urls, "qiita", QiitaBaseURL)
 
 	if args != "" {
 		openQiitaPage(args, urls)
 	}
 }
-
 
 func openQiitaPage(args string, urls []string) {
 	itemNo, err := strconv.Atoi(args)

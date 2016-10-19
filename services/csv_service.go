@@ -4,11 +4,40 @@ import (
 	"encoding/csv"
 	"log"
 	"os"
+	"fmt"
 )
 
+func ReadCSV(filename string) ([]string, error) {
+	f, err := os.Open("csv/" + filename + ".csv")
+	if err != nil {
+		return nil, err
+	}
+	defer f.Close() // this needs to be after the err check
+
+	lines, err := csv.NewReader(f).ReadAll()
+	if err != nil {
+		return nil, err
+	}
+	//fmt.Println(lines)
+
+	urls := []string{}
+	for _, line := range lines {
+		urls = append(urls, line[0])
+	}
+
+	return urls, nil
+}
+
 func WriteCSV(urls []string, filename string, baseURL string) {
+	csvFile := "csv/" + filename + ".csv"
+	// Delete file at first
+	err := os.Remove(csvFile)
+	if err != nil {
+		fmt.Println(err)
+	}
+
 	// Create file
-	file, err := os.Create("csv/" + filename + ".csv")
+	file, err := os.Create(csvFile)
 	if err != nil {
 		log.Fatal("Cannot create file", err)
 	}
@@ -33,9 +62,7 @@ func WriteCSV(urls []string, filename string, baseURL string) {
 }
 
 func prepare_urls_data(urls []string, baseURL string) [][]string {
-	urls_data := [][]string{
-		{"url"},
-	}
+	urls_data := [][]string{}
 	for _, url := range urls {
 		url = baseURL + url
 		urls_data = append(urls_data, []string{url})
