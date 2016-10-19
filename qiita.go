@@ -5,6 +5,7 @@ import (
 	"strconv"
 	"github.com/PuerkitoBio/goquery"
 	"github.com/takp/timely/helpers"
+	"github.com/takp/timely/services"
 )
 
 const (
@@ -36,6 +37,8 @@ func Qiita(args string) {
 			fmt.Println(i + 1, title)
 		}
 	})
+
+	services.WriteCSV(urls, "qiita", QiitaBaseURL)
 
 	if args != "" {
 		openQiitaPage(args, urls)
