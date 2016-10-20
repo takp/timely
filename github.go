@@ -60,6 +60,7 @@ func openGithubPage(args string, urls []string) {
 
 	if itemNo < 1 || itemNo > 25 {
 		fmt.Println("Can not open. The number must be between 1 to 25.")
+		return
 	}
 
 	url := urls[itemNo - 1]

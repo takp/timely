@@ -11,6 +11,7 @@ import (
 const (
 	QiitaBaseURL = "http://qiita.com"
 	QiitaPopularURL = "http://qiita.com/popular-items"
+	QiitaFileName = "qiita"
 	OpeningMessage = "Opening..."
 )
 
@@ -21,17 +22,17 @@ func Qiita(args string) {
 	// But if the csv data is nil, fetch new urls.
 	if args != "" {
 		fmt.Println(OpeningMessage)
-		urls, _ = services.ReadCSV("qiita")
+		urls, _ = services.ReadCSV(QiitaFileName)
 		if len(urls) == 0 {
 			urls = fetchQiita()
 		}
-		services.WriteCSV(urls, "qiita")
+		services.WriteCSV(urls, QiitaFileName)
 		openQiitaPage(args, urls)
 	// if args does not exist, fetch new data and save to CSV file.
 	} else {
 		fmt.Println("--- Qiita 人気の投稿 ---")
 		urls = fetchQiita()
-		services.WriteCSV(urls, "qiita")
+		services.WriteCSV(urls, QiitaFileName)
 	}
 }
 
