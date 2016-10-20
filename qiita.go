@@ -23,19 +23,19 @@ func Qiita(args string) {
 		fmt.Println(OpeningMessage)
 		urls, _ = services.ReadCSV("qiita")
 		if len(urls) == 0 {
-			urls = fetchQiita(args)
+			urls = fetchQiita()
 		}
 		services.WriteCSV(urls, "qiita")
 		openQiitaPage(args, urls)
 	// if args does not exist, fetch new data and save to CSV file.
 	} else {
 		fmt.Println("--- Qiita 人気の投稿 ---")
-		urls = fetchQiita(args)
+		urls = fetchQiita()
 		services.WriteCSV(urls, "qiita")
 	}
 }
 
-func fetchQiita(args string) []string {
+func fetchQiita() []string {
 	urls := []string{}
 	doc, err := goquery.NewDocument(QiitaPopularURL)
 	if err != nil {
@@ -46,10 +46,7 @@ func fetchQiita(args string) []string {
 		title := s.Find(".popularItem_articleTitle_text").Text()
 		url, _ := s.Find(".popularItem_articleTitle_text").Attr("href")
 		urls = append(urls, url)
-
-		if args == "" {
-			fmt.Println(i + 1, title)
-		}
+		fmt.Println(i + 1, title)
 	})
 	urls = helpers.AddBaseURL(urls, QiitaBaseURL)
 	return urls

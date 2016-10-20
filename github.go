@@ -6,26 +6,38 @@ import (
 	"github.com/PuerkitoBio/goquery"
 	"strings"
 	"github.com/takp/timely/helpers"
+	"github.com/takp/timely/services"
 )
 
 const (
 	GithubBaseURL = "https://github.com"
 	GithubTrendingURL = "https://github.com/trending"
+	GithubFileName = "github"
 )
 
 func Github(args string) {
-	if args == "" {
-		fmt.Println("--- Github Trending Repositories ---")
-	} else {
+	urls := []string{}
+	if args != "" {
 		fmt.Println(OpeningMessage)
+		urls, _ = services.ReadCSV(GithubFileName)
+		if len(urls) == 0 {
+			urls = fetchGithub()
+		}
+		services.WriteCSV(urls, GithubFileName)
+		openGithubPage(args, urls)
+	} else {
+		fmt.Println("--- Github Trending Repositories ---")
+		urls = fetchGithub()
+		services.WriteCSV(urls, GithubFileName)
 	}
+}
 
+func fetchGithub() []string {
+	urls := []string{}
 	doc, err := goquery.NewDocument(GithubTrendingURL)
 	if err != nil {
 		fmt.Println(err.Error())
 	}
-
-	urls := []string{}
 
 	doc.Find(".repo-list-item").Each(func(i int, s *goquery.Selection){
 		//name := s.Find("h3.repo-list-name").Text()
@@ -34,14 +46,10 @@ func Github(args string) {
 		name := url
 		desc = strings.TrimSpace(desc)
 		urls = append(urls, url)
-		if args == "" {
-			fmt.Println(i + 1, name, ":", desc)
-		}
+		fmt.Println(i + 1, name, ":", desc)
 	})
-
-	if args != "" {
-		openGithubPage(args, urls)
-	}
+	urls = helpers.AddBaseURL(urls, GithubBaseURL)
+	return urls
 }
 
 func openGithubPage(args string, urls []string) {
@@ -54,7 +62,7 @@ func openGithubPage(args string, urls []string) {
 		fmt.Println("Can not open. The number must be between 1 to 25.")
 	}
 
-	url := GithubBaseURL + urls[itemNo - 1]
+	url := urls[itemNo - 1]
 	fmt.Println("Item:", itemNo, "URL:", url)
 	helpers.OpenPage(url)
 }
