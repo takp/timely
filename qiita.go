@@ -15,21 +15,32 @@ const (
 )
 
 func Qiita(args string) {
-	if args == "" {
-		fmt.Println("--- Qiita 人気の投稿 ---")
-	} else {
-		fmt.Println(OpeningMessage)
-	}
+	urls := []string{}
 
+	// If args are present, Read csv file and go to file.
+	// But if the csv data is nil, fetch new urls.
+	if args != "" {
+		fmt.Println(OpeningMessage)
+		urls, _ = services.ReadCSV("qiita")
+		if len(urls) == 0 {
+			urls = fetchQiita(args)
+		}
+		services.WriteCSV(urls, "qiita")
+		openQiitaPage(args, urls)
+	// if args does not exist, fetch new data and save to CSV file.
+	} else {
+		fmt.Println("--- Qiita 人気の投稿 ---")
+		urls = fetchQiita(args)
+		services.WriteCSV(urls, "qiita")
+	}
+}
+
+func fetchQiita(args string) []string {
+	urls := []string{}
 	doc, err := goquery.NewDocument(QiitaPopularURL)
 	if err != nil {
 		fmt.Println(err.Error())
 	}
-
-	urls := []string{}
-
-	// Read CSV
-	urls, err = services.ReadCSV("qiita")
 
 	doc.Find(".popularItem").Each(func(i int, s *goquery.Selection){
 		title := s.Find(".popularItem_articleTitle_text").Text()
@@ -40,13 +51,8 @@ func Qiita(args string) {
 			fmt.Println(i + 1, title)
 		}
 	})
-
-	// Write CSV
-	services.WriteCSV(urls, "qiita", QiitaBaseURL)
-
-	if args != "" {
-		openQiitaPage(args, urls)
-	}
+	urls = helpers.AddBaseURL(urls, QiitaBaseURL)
+	return urls
 }
 
 func openQiitaPage(args string, urls []string) {
@@ -57,9 +63,10 @@ func openQiitaPage(args string, urls []string) {
 
 	if itemNo < 1 || itemNo > 20 {
 		fmt.Println("Can not open. The number must be between 1 to 20.")
+		return
 	}
 
-	url := QiitaBaseURL + urls[itemNo - 1]
+	url := urls[itemNo - 1]
 	fmt.Println("URL:", url)
 	helpers.OpenPage(url)
 }

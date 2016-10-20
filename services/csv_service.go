@@ -4,7 +4,6 @@ import (
 	"encoding/csv"
 	"log"
 	"os"
-	"fmt"
 )
 
 func ReadCSV(filename string) ([]string, error) {
@@ -28,13 +27,10 @@ func ReadCSV(filename string) ([]string, error) {
 	return urls, nil
 }
 
-func WriteCSV(urls []string, filename string, baseURL string) {
+func WriteCSV(urls []string, filename string) {
 	csvFile := "csv/" + filename + ".csv"
 	// Delete file at first
-	err := os.Remove(csvFile)
-	if err != nil {
-		fmt.Println(err)
-	}
+	os.Remove(csvFile)
 
 	// Create file
 	file, err := os.Create(csvFile)
@@ -44,7 +40,7 @@ func WriteCSV(urls []string, filename string, baseURL string) {
 	defer file.Close()
 
 	// Prepare data for writing
-	urls_data := prepare_urls_data(urls, baseURL)
+	urls_data := prepare_urls_data(urls)
 
 	// Write CSV file
 	w := csv.NewWriter(file)
@@ -61,10 +57,9 @@ func WriteCSV(urls []string, filename string, baseURL string) {
 	}
 }
 
-func prepare_urls_data(urls []string, baseURL string) [][]string {
+func prepare_urls_data(urls []string) [][]string {
 	urls_data := [][]string{}
 	for _, url := range urls {
-		url = baseURL + url
 		urls_data = append(urls_data, []string{url})
 	}
 	return urls_data
