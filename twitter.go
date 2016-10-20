@@ -11,8 +11,10 @@ import (
 
 const (
 	TwitterBaseURL = "https://twitter.com"
+	TwitterFileName = "twitter"
 )
 
+// TODO: Use CSV file to keep the data
 func Twitter(args string) {
 	fmt.Println("--- Twitter most shared links from the engineer accounts ---")
 	links := make(map[string]int)

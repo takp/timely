@@ -2,6 +2,13 @@
 
 Timely is the app to get the timely info for the web developers.
 
+## Run
+
+```
+$ go build
+$ ./timely
+```
+
 ## Commands
 
 You can fetch the timely info by the simple commands.
