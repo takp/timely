@@ -2,11 +2,21 @@
 
 Timely is the app to get the timely info for the web developers.
 
+## Versions
+
+go version go1.7.1 darwin/amd64
+
 ## Run
 
 ```
 $ go build
 $ ./timely
+```
+
+You can set the compiled binary file to your PATH by these command. ($GOPATH/bin)
+```
+$ go install
+$ timely
 ```
 
 ## Commands
